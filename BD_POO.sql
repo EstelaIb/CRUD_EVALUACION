@@ -1,11 +1,11 @@
+CREATE DATABASE SISTEMA;
 /*CREATE DATABASE SISTEMA;*/
 USE SISTEMA;
  /* TABLE PROVEEDOR */
 CREATE TABLE PROVEEDOR (
-	rucPRV varchar (10) not null primary key,
-    nomPRV varchar (15) not null,
-    apelliPRV varchar (15) not null,
-    telfPRV numeric (10) not null
+	rucPRV varchar (13) not null primary key,
+    nombrePRV varchar (40) not null,
+    telfPRV varchar (10) not null
 );
 
 /* TABLE CATEGORIAS */
@@ -21,7 +21,7 @@ CREATE TABLE CATEGORIA (
     stockPRO numeric (4) not null,
     pvpPRO numeric (4,2) not null,
     codCTG_FK varchar (10) not null,
-    rucPRV_FK varchar (10) not null,
+    rucPRV_FK varchar (13) not null,
 	FOREIGN KEY (codCTG_FK) REFERENCES CATEGORIA (codCTG)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
