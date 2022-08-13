@@ -18,7 +18,7 @@ public class searchAll extends JFrame{
     public searchAll(int option){
         // Characteristics of Window
         setContentPane(readW);
-        setSize(500,500);
+        setSize(520,500);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);

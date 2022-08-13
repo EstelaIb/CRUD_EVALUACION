@@ -64,12 +64,12 @@ public class createCategory extends  JFrame{
                 nameText.setEnabled(true);
                 descriptionText.setEnabled(true);
             }
-            co.setData(nameText.getText());
+            co.setData(nameText.getText().trim());
             ResultSet rSC = co.qryData();
             if (rSC != null){
                 try{
                     if (rSC.next()){
-                        descriptionText.setText(rSC.getString("descCTG"));
+                        descriptionText.setText(rSC.getString("descCTG").trim());
                     }
                 } catch (Exception ev){
                     JOptionPane.showMessageDialog(null, "THIS NOT HAPPENED", "EASTER EGG", JOptionPane.QUESTION_MESSAGE);
@@ -83,8 +83,8 @@ public class createCategory extends  JFrame{
 
         // CRUD Category
         saveButton.addActionListener(e ->{
-            String codCTG = nameText.getText();
-            String descCTG = descriptionText.getText();
+            String codCTG = nameText.getText().trim();
+            String descCTG = descriptionText.getText().trim();
             Integer code;
             try{
                 if (option == 0){

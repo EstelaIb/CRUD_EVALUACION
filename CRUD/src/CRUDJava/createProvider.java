@@ -67,14 +67,14 @@ public class createProvider extends JFrame{
                     jT.setEnabled(true);
                 }
             }
-            co.setData(rucText.getText());
+            co.setData(rucText.getText().trim());
             ResultSet rS = co.qryData();
             if (rS != null) {
                 try {
-                    if (rS.next()) {
-                        rucText.setText(rS.getString("rucPRV"));
-                        nomText.setText(rS.getString("nomPRV"));
-                        telfText.setText(rS.getString("telfPRV"));
+                    if (rS.next()){
+                        rucText.setText(rS.getString("rucPRV").trim());
+                        nomText.setText(rS.getString("nombrePRV").trim());
+                        telfText.setText(rS.getString("telfPRV").trim());
                     }
                 } catch (Exception eq) {
                     System.out.println("Exception" + eq);
@@ -89,9 +89,9 @@ public class createProvider extends JFrame{
 
         // CRUD Provider
         saveButton.addActionListener(e -> {
-            String rucPRV = rucText.getText();
-            String namePRV = nomText.getText();
-            String phonePRV = telfText.getText();
+            String rucPRV = rucText.getText().trim();
+            String namePRV = nomText.getText().trim();
+            String phonePRV = telfText.getText().trim();
             Integer code;
             try{
                 if (option == 0){
@@ -116,6 +116,7 @@ public class createProvider extends JFrame{
                 } else {
                     co.deleteData();
                     JOptionPane.showMessageDialog(null,"DELETE SUCCESSFULLY", "DELETE",JOptionPane.INFORMATION_MESSAGE);
+                    this.disabledAll();
                 }
                 this.cleanAll();
             } catch (Exception ep){

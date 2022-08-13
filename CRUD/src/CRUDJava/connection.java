@@ -88,6 +88,7 @@ public class connection {
     // ---------------------------------------- CREATE-UPDATE PRODUCT ----------------------------------------
     public int createProductSql(String codPro, String descPro, int stockPro, double pvpPro,
                               String FKcodCTG, String FKrucPRV){
+        this.errorCode = 0;
         try{
             String createSql = "INSERT INTO producto(codPRO, descPRO, stockPRO, pvpPRO, codCTG_FK, rucPRV_FK) " +
                     "VALUES (?,?,?,?,?,?)";
@@ -106,6 +107,7 @@ public class connection {
     }
     public int updateProductSql(String codPro, String descPro, int stockPro, double pvpPro,
                               String FKcodCTG, String FKrucPRV){
+        this.errorCode = 0;
         try{
             String sqlUpdate = "UPDATE producto SET codPRO = ?, descPRO = ?, stockPRO = ?, pvpPRO = ?, codCTG_FK = ?, " +
                     "rucPRV_FK = ? WHERE codPRO = ?";
@@ -129,8 +131,9 @@ public class connection {
 
     // ---------------------------------------- CREATE-UPDATE PROVIDER ----------------------------------------
     public int createProviderSql(String rucPRV, String nomPRV, String telfPRV){
+        this.errorCode = 0;
         try{
-            String createSqlP = "INSERT INTO proveedor(rucPRV, nomPRV, telfPRV) VALUES (?,?,?)";
+            String createSqlP = "INSERT INTO proveedor(rucPRV, nombrePRV, telfPRV) VALUES (?,?,?)";
             this.pS = conn.prepareStatement(createSqlP);
             this.pS.setString(1, rucPRV);
             this.pS.setString(2, nomPRV);
@@ -143,8 +146,9 @@ public class connection {
         return this.errorCode;
     }
     public int updateProviderSql(String rucPRV, String nomPRV,  String telfPRV){
+        this.errorCode = 0;
         try{
-            String sqlUpdate = "UPDATE  proveedor SET rucPRV = ?, nomPRV = ?, telfPRV = ? WHERE rucPRV = ?";
+            String sqlUpdate = "UPDATE  proveedor SET rucPRV = ?, nombrePRV = ?, telfPRV = ? WHERE rucPRV = ?";
             this.pS = conn.prepareStatement(sqlUpdate);
             this.pS.setString(1, rucPRV);
             this.pS.setString(2, nomPRV);
@@ -160,6 +164,7 @@ public class connection {
 
     // ---------------------------------------- U Category ----------------------------------------
     public int createCategorySql(String codCTG, String descCTG){
+        this.errorCode = 0;
         try{
             String createC = "INSERT INTO categoria(codCTG, descCTG) VALUES (?,?)";
             this.pS = conn.prepareStatement(createC);
@@ -174,6 +179,7 @@ public class connection {
     }
 
     public int UpdateCategorySql(String codCTG, String descCTG){
+        this.errorCode = 0;
         try{
             String sqlUpdate = "UPDATE categoria SET codCTG = ?, descCTG = ? WHERE codCTG = ?";
             this.pS = conn.prepareStatement(sqlUpdate);

@@ -63,11 +63,11 @@ public class createProduct extends JFrame{
             if (rs != null){
                 try{
                     if(rs.next()){
-                        descriptionProduct.setText(rs.getString("descPRO"));
+                        descriptionProduct.setText(rs.getString("descPRO").trim());
                         stockProduct.setText(String.valueOf(rs.getInt("stockPRO")));
                         priceProduct.setText(String.valueOf(rs.getDouble("pvpPRO")));
-                        catProduct.setText(rs.getString("codCTG_FK"));
-                        provProduct.setText(rs.getString("rucPRV_FK"));
+                        catProduct.setText(rs.getString("codCTG_FK").trim());
+                        provProduct.setText(rs.getString("rucPRV_FK").trim());
                     }
 
                 } catch (Exception eqry){
@@ -84,8 +84,7 @@ public class createProduct extends JFrame{
         // CRUD of Product
         savePButton.addActionListener(e ->{
             // Get data of all JTextField to prepare any Sql Statement
-            String codeP = codeProduct.getText();
-            String descriptionP = descriptionProduct.getText();
+
             int stockP = 0;
             double priceP = 0.0;
             boolean band = true;
@@ -102,8 +101,10 @@ public class createProduct extends JFrame{
             }
 
             if (!band){
-                String categoryP = catProduct.getText();
-                String providerP = provProduct.getText();
+                String codeP = codeProduct.getText().trim();
+                String descriptionP = descriptionProduct.getText().trim();
+                String categoryP = catProduct.getText().trim();
+                String providerP = provProduct.getText().trim();
                 Integer code;
                 try{
                     if(option == 0){
