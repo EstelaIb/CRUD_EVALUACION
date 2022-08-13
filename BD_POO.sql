@@ -32,9 +32,9 @@ CREATE TABLE CATEGORIA (
  );
  
  /*TABLE USUARIO*/
- 
  CREATE TABLE usuarios(
-	passwordUSR varchar (10) not null primary key,
-    nomUSR varchar (25) not null
+	nomUSR varchar (25) not null primary key,
+	passwordUSR varchar (10) not null
+    
  );
  
