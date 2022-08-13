@@ -11,20 +11,20 @@
 
 Examples:
 
-![Section to choose](./assets/example_one.PNG)
+![Section to choose](assets/example_one.PNG)
 
-![Unlocked buttons](./assets/example_two.PNG)
+![Unlocked buttons](assets/example_two.PNG)
 
 3. Now you can **CREATE, UPDATE, SEARCH/READ OR DELETE** the data of each of the sections.
 
 ## CREATE
 * The window will be displayed where you can add the requested information depending on the section you have chosen. 
   
-![CREATE P](./assets/createP.PNG)
+![CREATE P](assets/createP.PNG)
 
-![CREATE C](./assets/createC.PNG)
+![CREATE C](assets/createC.PNG)
 
-![CREATE PR](./assets/createPR.PNG)
+![CREATE PR](assets/createPR.PNG)
 
 ## UPDATE
 
@@ -37,11 +37,11 @@ Key for the section:
 
 **Categories = Categories code**
 
-![UPDATE P](./assets/updateP.PNG)
+![UPDATE P](assets/updateP.PNG)
 
-![UPDATE C](./assets/updateC.PNG)
+![UPDATE C](assets/updateC.PNG)
 
-![UPDATE PR](./assets/updatePR.PNG)
+![UPDATE PR](assets/updatePR.PNG)
 
 After pressing the consult button, all the data will be shown and you will be able to update the field you want.
 
@@ -51,7 +51,7 @@ After pressing the consult button, all the data will be shown and you will be ab
   
 **For section Providers the code = RUC**
 
-![SEARCH DATA](./assets/read.PNG)
+![SEARCH DATA](assets/read.PNG)
 
 ## DELETE
 
@@ -65,21 +65,21 @@ After pressing the consult button, all the data will be shown and you will be ab
 
 And from there delete.
 
-![DELETE P](./assets/deleteP.PNG)
+![DELETE P](assets/deleteP.PNG)
 
-![DELETE C](./assets/deleteC.PNG)
+![DELETE C](assets/deleteC.PNG)
 
-![DELETE PR](./assets/deletePR.PNG)
+![DELETE PR](assets/deletePR.PNG)
 
 ## **TYPE OF ERRORS 💀:**
-![ERROR 1062](./assets/error62.PNG)
+![ERROR 1062](assets/error62.PNG)
    
 **[-] A record with the same PK already exists.** 🔑
    
-![ERROR 1452](./assets/error52.PNG)
+![ERROR 1452](assets/error52.PNG)
 
 **[-] There is no record to reference (FK)** 🗝
    
-![ERROR 1406](./assets/error06.PNG)
+![ERROR 1406](assets/error06.PNG)
 
 **[-] The field exceeds the limit.**
