@@ -40,6 +40,7 @@
         </constraints>
         <properties>
           <background color="-5912118"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="43e58" class="javax.swing.JLabel">
@@ -60,6 +61,7 @@
         </constraints>
         <properties>
           <background color="-5912118"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="c5707" class="javax.swing.JLabel">
@@ -80,6 +82,7 @@
         </constraints>
         <properties>
           <background color="-5912118"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="71e00" class="javax.swing.JLabel">
@@ -100,6 +103,7 @@
         </constraints>
         <properties>
           <background color="-5912118"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <vspacer id="58294">
@@ -148,7 +152,8 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-5912118"/>
+          <background color="-1245187"/>
+          <foreground color="-16777216"/>
         </properties>
       </component>
       <component id="70ed4" class="javax.swing.JButton" binding="savePButton">

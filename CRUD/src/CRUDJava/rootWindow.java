@@ -2,7 +2,7 @@ package CRUDJava;
 
 import javax.swing.*;
 
-public class rootWindow extends JDialog{
+public class rootWindow extends JFrame{
     private JButton createButton;
     private JButton shareButton;
     private JButton deleteButton;
@@ -21,7 +21,7 @@ public class rootWindow extends JDialog{
         setSize(800,450);
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JButton[] buttons = {createButton, updateButton, deleteButton, shareButton};
         for (JButton jB : buttons){
@@ -32,6 +32,12 @@ public class rootWindow extends JDialog{
             for (JButton jB : buttons){
                 jB.setEnabled(true);
             }
+        });
+
+        shareButton.addActionListener(e -> {
+            int option = comboBox1.getSelectedIndex();
+            searchAll sA = new searchAll(option);
+
         });
 
         createButton.addActionListener(e -> {
@@ -48,7 +54,6 @@ public class rootWindow extends JDialog{
                     break;
                 default:
                     System.out.println("This not happened");
-                dispose();
             }
         });
 
@@ -66,7 +71,6 @@ public class rootWindow extends JDialog{
                     break;
                 default:
                     System.out.println("This not happened");
-                    dispose();
             }
         });
 
@@ -84,7 +88,6 @@ public class rootWindow extends JDialog{
                     break;
                 default:
                     System.out.println("This not happened");
-                    dispose();
             }
         });
     }
