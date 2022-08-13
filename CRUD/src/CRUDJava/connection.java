@@ -10,19 +10,17 @@ public class connection {
     private PreparedStatement pS;
     private String userName;
     private String password;
+    private int errorCode = 0;
     public connection(){
         this.getConnection();
     }
 
 
-
-
-
     // ---------------------------------------- Create connection to DB ----------------------------------------
     public void getConnection(){
         try{
-            String stringConnection = "jdbc:mysql://localhost/supermarket";
-            this.conn = DriverManager.getConnection(stringConnection, "root", "MySQLedison18");
+            String stringConnection = "jdbc:mysql://localhost/[]";
+            this.conn = DriverManager.getConnection(stringConnection, "[]", "[]");
         } catch(Exception e){
             System.out.println("Error: " + e);
         }
@@ -30,11 +28,9 @@ public class connection {
 
     public ResultSet loginUser(){
         try{
-            String sqlLogin = "SELECT * FROM usuarios WHERE nomUSR = ? AND passwordUSR = ?";
+            String sqlLogin = "SELECT * FROM usuarios WHERE" + " nomUSR = '" + this.userName + "' AND passwordUSR = '" + this.password + "'";
             this.pS = conn.prepareStatement(sqlLogin);
-            this.pS.setString(1, this.userName);
-            this.pS.setString(2, this.password);
-            return pS.executeQuery();
+            return this.pS.executeQuery();
         } catch (Exception ty){
             System.out.println("Exception: " + ty);
             return null;
@@ -90,7 +86,7 @@ public class connection {
 
 
     // ---------------------------------------- CREATE-UPDATE PRODUCT ----------------------------------------
-    public void createProductSql(String codPro, String descPro, int stockPro, double pvpPro,
+    public int createProductSql(String codPro, String descPro, int stockPro, double pvpPro,
                               String FKcodCTG, String FKrucPRV){
         try{
             String createSql = "INSERT INTO producto(codPRO, descPRO, stockPRO, pvpPRO, codCTG_FK, rucPRV_FK) " +
@@ -103,11 +99,12 @@ public class connection {
             this.pS.setString(5, FKcodCTG);
             this.pS.setString(6, FKrucPRV);
             this.pS.executeUpdate();
-        } catch (Exception e){
-            System.out.printf("Exception: " + e);
+        } catch (SQLException e){
+            this.errorCode = e.getErrorCode();
         }
+        return this.errorCode;
     }
-    public void updateProductSql(String codPro, String descPro, int stockPro, double pvpPro,
+    public int updateProductSql(String codPro, String descPro, int stockPro, double pvpPro,
                               String FKcodCTG, String FKrucPRV){
         try{
             String sqlUpdate = "UPDATE producto SET codPRO = ?, descPRO = ?, stockPRO = ?, pvpPRO = ?, codCTG_FK = ?, " +
@@ -122,14 +119,16 @@ public class connection {
             this.pS.setString(7, this.data);
             this.pS.executeUpdate();
 
-        } catch (Exception e){
-            System.out.println("Exception: " + e);
+        } catch (SQLException e){
+            this.errorCode = e.getErrorCode();
         }
+
+        return this.errorCode;
     }
 
 
     // ---------------------------------------- CREATE-UPDATE PROVIDER ----------------------------------------
-    public void createProviderSql(String rucPRV, String nomPRV, String telfPRV){
+    public int createProviderSql(String rucPRV, String nomPRV, String telfPRV){
         try{
             String createSqlP = "INSERT INTO proveedor(rucPRV, nomPRV, telfPRV) VALUES (?,?,?)";
             this.pS = conn.prepareStatement(createSqlP);
@@ -138,11 +137,12 @@ public class connection {
             this.pS.setString(3, telfPRV);
             this.pS.executeUpdate();
 
-        } catch (Exception e){
-            System.out.printf("Exception: " + e);
+        } catch (SQLException e){
+            this.errorCode = e.getErrorCode();
         }
+        return this.errorCode;
     }
-    public void updateProviderSql(String rucPRV, String nomPRV,  String telfPRV){
+    public int updateProviderSql(String rucPRV, String nomPRV,  String telfPRV){
         try{
             String sqlUpdate = "UPDATE  proveedor SET rucPRV = ?, nomPRV = ?, telfPRV = ? WHERE rucPRV = ?";
             this.pS = conn.prepareStatement(sqlUpdate);
@@ -151,26 +151,29 @@ public class connection {
             this.pS.setString(3, telfPRV);
             this.pS.setString(4, this.data);
             this.pS.executeUpdate();
-        } catch (Exception e){
-            System.out.println("Exception: " + e);
+        } catch (SQLException e){
+            this.errorCode = e.getErrorCode();
         }
+        return this.errorCode;
     }
 
 
     // ---------------------------------------- U Category ----------------------------------------
-    public void createCategorySql(String codCTG, String descCTG){
+    public int createCategorySql(String codCTG, String descCTG){
         try{
             String createC = "INSERT INTO categoria(codCTG, descCTG) VALUES (?,?)";
             this.pS = conn.prepareStatement(createC);
             this.pS.setString(1, codCTG);
             this.pS.setString(2, descCTG);
             this.pS.executeUpdate();
-        } catch (Exception ep){
-            System.out.println("Exception: " + ep);
+        } catch (SQLException e){
+            this.errorCode = e.getErrorCode();
         }
+
+        return this.errorCode;
     }
 
-    public void UpdateCategorySql(String codCTG, String descCTG){
+    public int UpdateCategorySql(String codCTG, String descCTG){
         try{
             String sqlUpdate = "UPDATE categoria SET codCTG = ?, descCTG = ? WHERE codCTG = ?";
             this.pS = conn.prepareStatement(sqlUpdate);
@@ -178,9 +181,10 @@ public class connection {
             this.pS.setString(2, descCTG);
             this.pS.setString(3, this.data);
             this.pS.executeUpdate();
-        } catch (Exception e){
-            System.out.println("Exception: " + e);
+        } catch (SQLException e){
+            this.errorCode = e.getErrorCode();
         }
+        return this.errorCode;
     }
 
 

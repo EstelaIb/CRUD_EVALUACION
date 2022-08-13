@@ -26,8 +26,9 @@ public class Loggin extends JFrame{
                 connection co = new connection();
                 co.setUserName(userText.getText());
                 co.setPassword(String.valueOf(passwordText.getPassword()));
-                ResultSet rS = co.loginUser();
-                if (rS != null) {
+                ResultSet set = co.loginUser();
+
+                if (set.next()) {
                     rootWindow menu = new rootWindow();
                     dispose();
                 } else {
@@ -35,13 +36,10 @@ public class Loggin extends JFrame{
                             null,"Username or Password incorrect", "Try Again",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
             } catch (Exception ev) {
-                System.out.println("Exception: " + ev);
+                JOptionPane.showMessageDialog(null, "THIS NOT HAPPENED", "EASTER EGG", JOptionPane.QUESTION_MESSAGE);
             }
         });
-
-
     }
 
     public static void main(String[] args){

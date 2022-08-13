@@ -2,6 +2,8 @@ package CRUDJava;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.font.LayoutPath;
 import java.sql.ResultSet;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -16,12 +18,19 @@ public class searchAll extends JFrame{
     public searchAll(int option){
         // Characteristics of Window
         setContentPane(readW);
-        setSize(500,250);
+        setSize(500,500);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
         setTitle("Inventory");
+        setResizable(false);
         connection co = new connection();
+
+        JScrollPane scrollPane = new JScrollPane(this.productsTables);
+
+        getContentPane().setLayout(new FlowLayout());
+        this.stringToSearch.setColumns(5);
+        getContentPane().add(scrollPane);
 
         if (option == 0){
             co.setTable("producto");
@@ -36,21 +45,20 @@ public class searchAll extends JFrame{
         showData(option, rS.get());
         searchButton.addActionListener(e -> {
             int optionSearch = optionsSearch.getSelectedIndex();
+
             String column;
             if (option == 0){
                 column = (optionSearch == 0) ? "codPRO" : "descPRO";
             } else if (option == 1){
                 column = (optionSearch == 0) ? "codCTG" : "descCTG";
             } else {
-                column = (optionSearch == 0) ? "rucPRV" : "nomPRV";
+                column = (optionSearch == 0) ? "rucPRV" : "nombrePRV";
             }
 
             String data = stringToSearch.getText();
             co.setData(data);
             co.setColumn(column);
             rS.set(co.qryLikeData());
-
-
             showData(option, rS.get());
         });
     }
@@ -62,6 +70,7 @@ public class searchAll extends JFrame{
         String[] columnsCategory = {"CODIGO", "DESCRIPCION"};
 
         DefaultTableModel t = new DefaultTableModel();
+
         if(option == 0){
             for(String n: columnsProduct){
                 t.addColumn(n);
@@ -95,11 +104,8 @@ public class searchAll extends JFrame{
                 }
                 this.productsTables.setModel(t);
             } catch (Exception er){
-                System.out.println("Exception: " + er);
+                JOptionPane.showMessageDialog(null, "THIS NOT HAPPENED", "EASTER EGG", JOptionPane.QUESTION_MESSAGE);
             }
-
-        } else {
-            System.out.println("Empty");
         }
     }
 }

@@ -2,6 +2,7 @@ package CRUDJava;
 
 import javax.swing.*;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class createProduct extends JFrame{
     private JTextField codeProduct;
@@ -46,7 +47,7 @@ public class createProduct extends JFrame{
 
         if (option == 1 | option == 2){
             consultarButton.setVisible(true);
-            this.enabledAll();
+            this.disabledAll();
         }
 
         // Complement query of CRUD
@@ -85,31 +86,60 @@ public class createProduct extends JFrame{
             // Get data of all JTextField to prepare any Sql Statement
             String codeP = codeProduct.getText();
             String descriptionP = descriptionProduct.getText();
-            int stockP = Integer.parseInt(stockProduct.getText());
-            double priceP = Double.parseDouble(priceProduct.getText());
-            String categoryP = catProduct.getText();
-            String providerP = provProduct.getText();
-
+            int stockP = 0;
+            double priceP = 0.0;
+            boolean band = true;
             try{
-                if(option == 0){
-                    co.createProductSql(codeP, descriptionP, stockP, priceP, categoryP, providerP);
-                    JOptionPane.showMessageDialog(null,"CREATE SUCCESSFULLY", "CREATE",JOptionPane.INFORMATION_MESSAGE);
-                } else if (option == 1){
-                    co.updateProductSql(codeP, descriptionP, stockP, priceP, categoryP, providerP);
-                    JOptionPane.showMessageDialog(null,"UPDATE SUCCESSFULLY", "Update",JOptionPane.INFORMATION_MESSAGE);
-                    this.enabledAll();
+                stockP = Integer.parseInt(stockProduct.getText());
+                priceP = Double.parseDouble(priceProduct.getText());
+                if (stockP > 0 & priceP > 0){
+                    band = false;
                 } else {
-                    co.deleteData();
-                    JOptionPane.showMessageDialog(null,"DELETE SUCCESSFULLY", "Delete",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "INVALID STOCK OR PRICE", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                this.cleanAll();
-            } catch (Exception exc){
-                System.out.println("Exception: " + exc);
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "INCORRECT DATA", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
+            if (!band){
+                String categoryP = catProduct.getText();
+                String providerP = provProduct.getText();
+                Integer code;
+                try{
+                    if(option == 0){
+                         code = co.createProductSql(codeP, descriptionP, stockP, priceP, categoryP, providerP);
+                        if(code.equals(0)){
+                            JOptionPane.showMessageDialog(null,"CREATE SUCCESSFULLY", "CREATE",JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null,"CODE ERROR: " + code, "ERROR",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null,"PRODUCT NOT CREATED", "ERROR",JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else if (option == 1){
+                        code = co.updateProductSql(codeP, descriptionP, stockP, priceP, categoryP, providerP);
+                        if (code.equals(0)) {
+                            JOptionPane.showMessageDialog(null,"UPDATE SUCCESSFULLY", "Update",JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null,"CODE ERROR: " + code, "ERROR",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null,"PRODUCT NOT UPDATED", "ERROR",JOptionPane.ERROR_MESSAGE);
+                        }
+                        this.disabledAll();
+                    } else {
+                        co.deleteData();
+                        JOptionPane.showMessageDialog(null,"DELETE SUCCESSFULLY", "Delete",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    this.cleanAll();
+                } catch (Exception exc){
+                    JOptionPane.showMessageDialog(null, "THIS NOT HAPPENED", "EASTER EGG", JOptionPane.QUESTION_MESSAGE);
+                }
+            }
+
         });
 
         // Cancel Button
-        cancelarBProduct.addActionListener( e -> this.cleanAll());
+        cancelarBProduct.addActionListener( e -> {
+            this.cleanAll();
+            this.disabledAll();
+        });
 
         // Show more characteristics of Window
         switch (option){
@@ -134,7 +164,7 @@ public class createProduct extends JFrame{
         codeProduct.setText("");
     }
 
-    public void enabledAll(){
+    public void disabledAll(){
         cancelarBProduct.setEnabled(false);
         savePButton.setEnabled(false);
         for (JTextField jT : jTexts){

@@ -44,7 +44,7 @@ public class createProvider extends JFrame{
         // Disabled some objects
         if (option == 1 | option == 2){
             queryButton.setVisible(true);
-            this.enabledAll();
+            this.disabledAll();
         }
 
         switch (option){
@@ -91,17 +91,28 @@ public class createProvider extends JFrame{
         saveButton.addActionListener(e -> {
             String rucPRV = rucText.getText();
             String namePRV = nomText.getText();
-
             String phonePRV = telfText.getText();
-
+            Integer code;
             try{
                 if (option == 0){
-                    co.createProviderSql(rucPRV, namePRV, phonePRV);
-                    JOptionPane.showMessageDialog(null,"CREATE SUCCESSFULLY", "CREATE",JOptionPane.INFORMATION_MESSAGE);
+                    code = co.createProviderSql(rucPRV, namePRV, phonePRV);
+                    if (code.equals(0)){
+                        JOptionPane.showMessageDialog(null,"CREATE SUCCESSFULLY", "CREATE",JOptionPane.INFORMATION_MESSAGE);
+                    } else{
+                        JOptionPane.showMessageDialog(null,"CODE ERROR: " + code, "ERROR",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"PROVIDER NOT CREATED", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    }
+
                 } else if (option == 1){
-                    co.updateProviderSql(rucPRV, namePRV, phonePRV);
-                    JOptionPane.showMessageDialog(null,"UPDATE SUCCESSFULLY", "UPDATE",JOptionPane.INFORMATION_MESSAGE);
-                    this.enabledAll();
+                    code = co.updateProviderSql(rucPRV, namePRV, phonePRV);
+                    if (code.equals(0)){
+                        JOptionPane.showMessageDialog(null,"UPDATE SUCCESSFULLY", "UPDATE",JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null,"CODE ERROR: " + code, "ERROR",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"PROVIDER NOT UPDATED", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    this.disabledAll();
                 } else {
                     co.deleteData();
                     JOptionPane.showMessageDialog(null,"DELETE SUCCESSFULLY", "DELETE",JOptionPane.INFORMATION_MESSAGE);
@@ -113,7 +124,10 @@ public class createProvider extends JFrame{
         });
 
         // Cancel Button
-        cancelButton.addActionListener(e -> this.cleanAll());
+        cancelButton.addActionListener(e -> {
+            this.cleanAll();
+            this.disabledAll();
+        });
     }
 
 
@@ -124,7 +138,7 @@ public class createProvider extends JFrame{
         rucText.setText("");
     }
 
-    private void enabledAll(){
+    private void disabledAll(){
         for(JTextField jT : jTexts){
             jT.setEnabled(false);
         }

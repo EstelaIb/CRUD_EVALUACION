@@ -72,7 +72,7 @@ public class createCategory extends  JFrame{
                         descriptionText.setText(rSC.getString("descCTG"));
                     }
                 } catch (Exception ev){
-                    System.out.println("Exception: " + ev);
+                    JOptionPane.showMessageDialog(null, "THIS NOT HAPPENED", "EASTER EGG", JOptionPane.QUESTION_MESSAGE);
                 }
                 saveButton.setEnabled(true);
                 cancelButton.setEnabled(true);
@@ -85,13 +85,26 @@ public class createCategory extends  JFrame{
         saveButton.addActionListener(e ->{
             String codCTG = nameText.getText();
             String descCTG = descriptionText.getText();
+            Integer code;
             try{
                 if (option == 0){
-                    co.createCategorySql(codCTG, descCTG);
-                    JOptionPane.showMessageDialog(null,"CREATE SUCCESSFULLY", "CREATE",JOptionPane.INFORMATION_MESSAGE);
+                    code = co.createCategorySql(codCTG, descCTG);
+                    if (code.equals(0)){
+                        JOptionPane.showMessageDialog(null,"CREATE SUCCESSFULLY", "CREATE",JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null,"CODE ERROR: " + code, "ERROR",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"CATEGORY NOT CREATED", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    }
+
                 } else if (option == 1){
-                    co.UpdateCategorySql(codCTG, descCTG);
-                    JOptionPane.showMessageDialog(null,"UPDATE SUCCESSFULLY", "UPDATE",JOptionPane.INFORMATION_MESSAGE);
+                    code = co.UpdateCategorySql(codCTG, descCTG);
+                    if (code.equals(0)){
+                        JOptionPane.showMessageDialog(null,"UPDATE SUCCESSFULLY", "UPDATE",JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null,"CODE ERROR: " + code, "ERROR",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null,"CATEGORY NOT UPDATED", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    }
+
                     this.disabledAll();
                 } else{
                     co.deleteData();
@@ -100,11 +113,14 @@ public class createCategory extends  JFrame{
                 }
                 this.cleanAll();
             } catch (Exception et) {
-                System.out.println("Exception: " + et);
+                JOptionPane.showMessageDialog(null, "THIS NOT HAPPENED", "EASTER EGG", JOptionPane.QUESTION_MESSAGE);
             }
         });
 
-        cancelButton.addActionListener(e -> this.cleanAll());
+        cancelButton.addActionListener(e ->{
+            this.cleanAll();
+            this.disabledAll();
+        });
     }
 
     private void disabledAll(){
